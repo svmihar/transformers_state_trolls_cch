@@ -3,11 +3,12 @@ from sklearn.metrics import f1_score, accuracy_score
 from simpletransformers.classification import ClassificationModel, ClassificationArgs
 
 import pandas as pd
-sampling=True
+
+sampling = False
 
 df = pd.read_csv("./data/train_raw.csv")
-if sampling: 
-    df= df.sample(20000)
+if sampling:
+    df = df.sample(20000)
 
 val = pd.read_csv("./data/validate.csv")
 val = val[["clean_text", "troll_or_not"]]
@@ -31,32 +32,30 @@ model_to_test = {
 }
 
 
-def train(arch, model_name):
+def train(arch, model_name,):
     model_args = ClassificationArgs(
         num_train_epochs=5,
         output_dir="./models",
         evaluate_during_training_steps=1000,
-        train_batch_size=128,
+        train_batch_size=64,
         reprocess_input_data=True,
         evaluate_during_training=True,
-        eval_batch_size=64,
+        eval_batch_size=32,
         save_model_every_epoch=False,
         overwrite_output_dir=True,
         learning_rate=7e-5,
         save_eval_checkpoints=False,
         best_model_dir=f"./models/{model_name}/best_model",
-        wandb_kwargs={"name": model_name},
-        use_early_stopping=True, 
+        use_early_stopping=True,
         early_stopping_delta=1e-2,
-        early_stopping_metric='mcc',
-        early_stopping_metric_minimize=False, 
-        early_stopping_patience=5, 
+        early_stopping_metric="mcc",
+        tensorboard_dir='./runs/',
+        early_stopping_metric_minimize=False,
+        wandb_project='my_roberta',
+        manual_seed=69,
+        early_stopping_patience=5,
     )
-
-
-    model = ClassificationModel(
-        arch, model_name, args=model_args, use_cuda=True
-    )
+    model = ClassificationModel(arch, model_name, args=model_args, use_cuda=True)
 
     model.train_model(
         train_df,
@@ -74,6 +73,6 @@ def train(arch, model_name):
 
 if __name__ == "__main__":
 
-    m = "roberta"
+    m = "distilbert"
 
     train(m, model_to_test[m])

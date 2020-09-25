@@ -73,6 +73,6 @@ def train(arch, model_name,):
 
 if __name__ == "__main__":
 
-    m = "roberta"
+    m = "electra"
 
     train(m, model_to_test[m])

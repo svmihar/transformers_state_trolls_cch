@@ -1,6 +1,5 @@
 # Troll or Not Troll?
 - [Troll or Not Troll?](#troll-or-not-troll)
-  - [- reference](#--referencereference)
   - [Intro](#intro)
   - [Motivation](#motivation)
   - [Approach](#approach)
@@ -53,15 +52,14 @@ whereas class 0 has 44939 tweets, and class 1 has 45009 tweets
 by eyeballing on the length of each tweet, we can see that the tweet legnth on each class has a distinguishable differences.
 ![](https://i.imgur.com/l32qjan.png)
 ### hyperparameters
-
 ## Results and conclusion
 All the training performance, losses and metrics are recorded to wandb. Results are [here](https://wandb.ai/yessyvita/my_roberta/reports/bert-base-multilingual--VmlldzoyNTM2MDg) if you prefer to see it for yourself.
 ### accuracy score graph
-TODO:
+![](https://i.imgur.com/pjZW3M2.png)
 ### mcc graph
-TODO:
+![](https://i.imgur.com/SLEbOEs.png)
 ### training time graph
-TODO:
+![](https://i.imgur.com/GFqeBa6.png)
 ### conclusion
 in this experiment we can see that `roberta-base` almost outpeforms every other model althoug ELECTRA came really close to roberta-base.
 despite the result on the GLUE Benchmark leaderboard, roberta-base gain advantage on shorter text, with a big number of corpus. Meanwhile `electra-base` came in pretty close in the second place, with a good hyperparameter optimization, it could surpass roberta. While `roberta-base` excels in this kind of task, `roberta-base` is really resource intensive compared to `electra-base` [sumber](https://openreview.net/pdf?id=r1xMH1BtvB)
